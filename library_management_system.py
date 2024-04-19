@@ -84,7 +84,7 @@ def search_books(search_string, book_list): # mitzi
     lower_ss = search_string.lower()
     for book in book_list:
         genre = book.get_genre_name()
-        if lower_ss in book.isbn.lower() or lower_ss in book.title.lower() or lower_ss in book.author.lower() or lower_ss in genre.lower():
+        if lower_ss in book.get_isbn().lower() or lower_ss in book.get_title().lower() or lower_ss in book.get_author.lower() or lower_ss in genre.lower():
             search_result.append(book)        
     return search_result
 
@@ -177,7 +177,6 @@ def save_books(book_list, file_path): #riya
         book_file.write(line)
         
         num_books += 1
-    
     return num_books
 
 
