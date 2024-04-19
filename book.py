@@ -10,7 +10,6 @@ class Book:
         self.__availability = availability
         return
     
-
     def get_title(self):
         return self.__title
 

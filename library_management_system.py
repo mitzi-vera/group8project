@@ -6,48 +6,51 @@ def main (): # mitzi
     curr_dir = os.getcwd()
     file_name = input("Enter book catalog filename: ")
     file_path = os.path.join(curr_dir, file_name)
-    if os.path.exists(file_path):
-        book_list = load_books(file_path)
-        print("Book catalog has been loaded.")
-        selection = 'p' # placeholder value
-        valid_selections = {"1" : "Search for books", "2" : "Borrow a book", "3" : "Return a book"} 
-        heading = "\nReader's Guild Library - Main Menu"
-        selection = print_menu(heading, valid_selections)
-        while selection != '0':                    
-            if selection == '2130':
-                valid_selections.update({"4" : "Add a book", "5" : "Remove a book", "6" : "Print catalog"})
-                heading = "\nReader's Guild Library - Librarian Menu"
-            else:
-                    if selection == '1': 
-                        print("-- Search for Books --")
-                        search_string = input("Enter Search Value: ")
-                        search_result = search_books(search_string, book_list)
-                        if len(search_result) == 0:
-                            print("No matching books found.")
-                        else:
-                            print_books(search_result)
-                    elif selection == '2':
-                        print("\n-- Borrow a book --")
-                        borrow_book(book_list)
-                    elif selection == '3': 
-                        print("\n-- Retun a book --")
-                        return_book(book_list)
-                    elif selection == '4': 
-                        print("\n-- Add a book --")
-                        book_list = add_book(book_list)
-                    elif selection == '5': 
-                        print("\n-- Remove a book --")
-                        book_list = remove_book(book_list)
-                    elif selection == '6': 
-                        print_books(book_list)
-            selection = print_menu(heading, valid_selections)
+    
+    while not os.path.exists(file_path):
+        file_name = input("File not found. Re-enter book catalog file name:")
 
-        save_books(book_list, file_path)
-        print("-- Exit the system --")
-        print("Book catalog has been saved.")
-        print("Good Bye!")
-    else:
-        print("File does not exist. Goodbye!\n")
+    file_path = os.path.join(curr_dir, file_name)
+    book_list = load_books(file_path)
+    print("Book catalog has been loaded.")
+    selection = 'p' # placeholder value
+    valid_selections = {"1" : "Search for books", "2" : "Borrow a book", "3" : "Return a book"} 
+    heading = "\nReader's Guild Library - Main Menu"
+    selection = print_menu(heading, valid_selections)
+    while selection != '0':                    
+        if selection == '2130':
+            valid_selections.update({"4" : "Add a book", "5" : "Remove a book", "6" : "Print catalog"})
+            heading = "\nReader's Guild Library - Librarian Menu"
+        else:
+                if selection == '1': 
+                    print("\n-- Search for Books --")
+                    search_string = input("Enter Search Value: ")
+                    search_result = search_books(search_string, book_list)
+                    if len(search_result) == 0:
+                        print("No matching books found.")
+                    else:
+                        print_books(search_result)
+                elif selection == '2':
+                    print("\n-- Borrow a book --")
+                    borrow_book(book_list)
+                elif selection == '3': 
+                    print("\n-- Retun a book --")
+                    return_book(book_list)
+                elif selection == '4': 
+                    print("\n-- Add a book --")
+                    add_book(book_list)
+                elif selection == '5': 
+                    print("\n-- Remove a book --")
+                    remove_book(book_list)
+                elif selection == '6': 
+                    print_books(book_list)
+        selection = print_menu(heading, valid_selections)
+
+    save_books(book_list, file_path)
+    print("-- Exit the system --")
+    print("Book catalog has been saved.")
+    print("Good Bye!")
+
     
 # this is a test push
 def load_books(file_path): # mitzi
@@ -124,20 +127,19 @@ def find_book_by_isbn(isbn, book_list): # riya
           return book_list.index(book_obj)
     return -1
 
-
 def add_book(book_list): # riya
     isbn = input("Enter the 13-digit ISBN (format 999-9999999999): ")
     title = input("Enter title: ")
     author = input("Enter author name: ")
     
     genre = input("Enter genre: ")
-    while genre not in book.Book.GENRE:
+    while genre not in book.Book.genre_list:
         print("Invalid genre. Choices are: ", end="")
-        for valid_genre in book.Book.GENRE:
+        for valid_genre in book.Book.genre_list:
           print(valid_genre, end=", ")
         genre = input("\nEnter genre: ")
     
-    genre_no = book.Book.GENRE.index(genre)
+    genre_no = book.Book.genre_list.index(genre)
     available = True
     book_obj = book.Book(isbn, title, author, genre_no, available)
     book_list.append(book_obj)
@@ -155,7 +157,7 @@ def remove_book(book_list): # riya
     del book_list[book_idx]
     
     
-def print_books(print_list): # option 6, 1
+def print_books(print_list): # ayo
     print("{:<14s} {:<25s} {:<25s} {:<20s} {:<s}".format("ISBN", "Title", "Author", "Genre", "Availability"))
     print("{:<14s} {:<25s} {:<25s} {:<20s} {:<s}".format("-"*14, "-"*25, "-"*25, "-"*20, "-"*12))
     for book in print_list:
@@ -171,7 +173,7 @@ def save_books(book_list, file_path): #riya
         title = book_obj.get_title()
         author = book_obj.get_author()
         genre = book_obj.get_genre()
-        available = book_obj.get_available()
+        available = book_obj.get_availability()
         
         line = f"{isbn},{title},{author},{genre},{available}\n"
         book_file.write(line)
