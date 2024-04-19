@@ -64,9 +64,6 @@ def load_books(file_path):
     infile.close()
     return book_list
 
-def print_menu():
-    return
-
 def search_books(search_string, book_list): # option 1, check if search string matches in isbn, title, author or genre, return search list
     search_result = []
     lower_ss = search_string.lower()
@@ -90,6 +87,8 @@ def borrow_book(book_list): # option 2
         print("No book found with that ISBN.")
     return
 
+def print_menu():
+    return
 
 def find_book_by_isbn(isbn, book_list):
     pass
