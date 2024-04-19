@@ -46,7 +46,6 @@ def main ():
         print("-- Exit the system --")
         print("Book catalog has been saved.")
         print("Good Bye!")
-
     else:
         print("File does not exist. Goodbye!\n")
     
