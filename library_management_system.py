@@ -102,11 +102,8 @@ def borrow_book(book_list): # mitzi
         print("No book found with that ISBN.")
     return
 
-def print_menu(): # ayo
-    return
 
-
-def return_book(book_list):def return_book(book_list): # option 3
+def return_book(book_list): # option 3
     to_return = input("Enter the 13-digit ISBN (format 999-9999999999): ")
     idx = find_book_by_isbn(to_return, book_list)
     if idx != -1:
@@ -116,6 +113,11 @@ def return_book(book_list):def return_book(book_list): # option 3
             book_list[idx].return_it()
             print(f'{title} with ISBN {to_return} successfully returned.')  
         else:
+            print(f'{title} with ISBN {to_return} is not currently borrowed.')
+    else:
+        print("No book found with that ISBN.")
+    return
+
 def find_book_by_isbn(isbn, book_list): # riya
     for book_obj in book_list:
         if isbn == book_obj.get_isbn():
@@ -151,9 +153,9 @@ def remove_book(book_list): # riya
     else:
         print(f"'{book_list[book_idx].get_title()}' with ISBN {isbn} successfully removed.")
     del book_list[book_idx]
-
-
-def save_books(book_list, file_path):def print_books(print_list): # option 6, 1
+    
+    
+def print_books(print_list): # option 6, 1
     print("{:<14s} {:<25s} {:<25s} {:<20s} {:<s}".format("ISBN", "Title", "Author", "Genre", "Availability"))
     print("{:<14s} {:<25s} {:<25s} {:<20s} {:<s}".format("-"*14, "-"*25, "-"*25, "-"*20, "-"*12))
     for book in print_list:
