@@ -1,7 +1,7 @@
 import book
 import os
 
-def main ():
+def main (): # mitzi
     print("Starting the system...")
     curr_dir = os.getcwd()
     file_name = input("Enter book catalog filename: ")
@@ -50,7 +50,7 @@ def main ():
         print("File does not exist. Goodbye!\n")
     
 # this is a test push
-def load_books(file_path):
+def load_books(file_path): # mitzi
     book_list = []
     infile = open(file_path, 'r')
     line = infile.readline()
@@ -63,7 +63,7 @@ def load_books(file_path):
     infile.close()
     return book_list
 
-def search_books(search_string, book_list): # option 1, check if search string matches in isbn, title, author or genre, return search list
+def search_books(search_string, book_list): # mitzi
     search_result = []
     lower_ss = search_string.lower()
     for book in book_list:
@@ -72,7 +72,7 @@ def search_books(search_string, book_list): # option 1, check if search string m
             search_result.append(book)        
     return search_result
 
-def borrow_book(book_list): # option 2
+def borrow_book(book_list): # mitzi
     to_borrow = input("Enter the 13-digit ISBN (format 999-9999999999): ")
     idx = find_book_by_isbn(to_borrow, book_list)
     if idx != -1:
@@ -86,16 +86,16 @@ def borrow_book(book_list): # option 2
         print("No book found with that ISBN.")
     return
 
-def print_menu():
+def print_menu(): # ayo
     return
 
-def find_book_by_isbn(isbn, book_list):
+def find_book_by_isbn(isbn, book_list): # riya
     for book_obj in book_list:
         if isbn == book_obj.get_isbn():
           return book_list.index(book_obj)
     return -1
 
-def add_book(book_list): # option 4
+def add_book(book_list): # riya
     isbn = input("Enter the 13-digit ISBN (format 999-9999999999): ")
     title = input("Enter title: ")
     author = input("Enter author name: ")
@@ -113,7 +113,7 @@ def add_book(book_list): # option 4
     book_list.append(book_obj)
     print(f"'{title}' with ISBN {isbn} successfully added.")
 
-def remove_book(book_list): # option 5
+def remove_book(book_list): # riya
     isbn = input("Enter the 13-digit ISBN (format 999-9999999999): ")
 
     book_idx = find_book_by_isbn(book_list, isbn)
@@ -124,10 +124,10 @@ def remove_book(book_list): # option 5
         print(f"'{book_list[book_idx].get_title()}' with ISBN {isbn} successfully removed.")
     del book_list[book_idx]
 
-def print_books(print_list): # option 6, 1
+def print_books(print_list): # ayo
     pass
 
-def save_books(book_list, file_path):
+def save_books(book_list, file_path): #riya
     book_file = open(file_path, "w")
     num_books = 0
     
