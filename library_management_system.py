@@ -169,10 +169,10 @@ def save_books(book_list, file_path): #riya
         title = book_obj.get_title()
         author = book_obj.get_author()
         genre = book_obj.get_genre()
-        if book_obj.get_availability() == False: 
-           available =  "FALSE" 
+        if book_obj.get_availability() == 'Available': 
+           available =  "TRUE" 
         else: 
-            available = "TRUE"
+            available = "FALSE"
         
         line = f"{isbn},{title},{author},{genre},{available}\n"
         book_file.write(line)
