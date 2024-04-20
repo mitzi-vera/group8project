@@ -9,13 +9,14 @@ def main (): # mitzi
         file_name = input("File not found. Re-enter book catalog file name:")
 
     file_path = os.path.join(curr_dir, file_name)
-    book_list = load_books(file_path)
+    book_list = []
+    count_books = load_books(file_path, book_list)
     print("Book catalog has been loaded.")
     selection = 'p' # placeholder value
     valid_selections = {"1" : "Search for books", "2" : "Borrow a book", "3" : "Return a book"} 
     heading = "\nReader's Guild Library - Main Menu"
-    selection = print_menu(heading, valid_selections)
-    while selection != '0':                  
+    while selection != '0':    
+        selection = print_menu(heading, valid_selections)              
         if selection == '2130':
             valid_selections.update({"4" : "Add a book", "5" : "Remove a book", "6" : "Print catalog"})
             heading = "\nReader's Guild Library - Librarian Menu"
@@ -42,23 +43,19 @@ def main (): # mitzi
                     remove_book(book_list)
                 elif selection == '6': 
                     print_books(book_list)
-        selection = print_menu(heading, valid_selections)
 
     save_books(book_list, file_path)
     print("-- Exit the system --")
     print("Book catalog has been saved.")
     print("Good Bye!")
 
-def load_books(file_path): # mitzi
-    book_list = []
+def load_books(file_path, book_list): # mitzi
     infile = open(file_path, 'r')
     line = infile.readline()
     while line != '':
         line_list = []
         line_list = line.strip().split(',')
-        availability = line_list[4].upper().strip().capitalize()
-        print(availability)
-        book_list.append(book.Book(line_list[0],line_list[1],line_list[2],int(line_list[3]), availability))
+        book_list.append(book.Book(line_list[0],line_list[1],line_list[2],int(line_list[3]), line_list[4]))
         line = infile.readline()
     infile.close()
     return book_list

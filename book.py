@@ -27,18 +27,18 @@ class Book:
         return Book.GENRE_LIST[self.__genre]
     
     def get_availability(self):
-        if self.__availability == 'True':
+        if self.__availability == 'TRUE':
             status = 'Available'
         else:
             status = 'Borrowed'
         return status
 
     def borrow_it(self):
-        self.__availability = False
+        self.__availability = 'FALSE'
         return
 
     def return_it(self):
-        self.__availability = True
+        self.__availability = 'TRUE'
         return
 
     def set_isbn(self, new_isbn):
