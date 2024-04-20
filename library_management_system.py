@@ -55,6 +55,7 @@ def load_books(file_path, book_list): # mitzi
     while line != '':
         line_list = []
         line_list = line.strip().split(',')
+        print(line_list[4].upper())
         book_list.append(book.Book(line_list[0],line_list[1],line_list[2],int(line_list[3]), line_list[4]))
         line = infile.readline()
     infile.close()
