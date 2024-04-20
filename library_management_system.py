@@ -6,7 +6,7 @@ def main (): # mitzi
     curr_dir = os.getcwd()
     file_name = input("Enter book catalog filename: ")
     while not os.path.exists(os.path.join(curr_dir, file_name)):
-        file_name = input("File not found. Re-enter book catalog file name:")
+        file_name = input("File not found. Re-enter book catalog file name: ")
 
     file_path = os.path.join(curr_dir, file_name)
     book_list = []
@@ -33,7 +33,7 @@ def main (): # mitzi
                     print("\n-- Borrow a book --")
                     borrow_book(book_list)
                 elif selection == '3': 
-                    print("\n-- Retun a book --")
+                    print("\n-- Return a book --")
                     return_book(book_list)
                 elif selection == '4': 
                     print("\n-- Add a book --")
@@ -61,8 +61,7 @@ def load_books(file_path, book_list): # mitzi
     infile.close()
     return book_list
 
-
-def print_menu(heading, valid_selections):
+def print_menu(heading, valid_selections): #ayo
     print(heading)
     print('='*34)
     for key in valid_selections:
@@ -82,7 +81,7 @@ def search_books(search_string, book_list): # mitzi
     lower_ss = search_string.lower()
     for book in book_list:
         genre = book.get_genre_name()
-        if lower_ss in book.get_isbn().lower() or lower_ss in book.get_title().lower() or lower_ss in book.get_author.lower() or lower_ss in genre.lower():
+        if lower_ss in book.get_isbn().lower() or lower_ss in book.get_title().lower() or lower_ss in book.get_author().lower() or lower_ss in genre.lower():
             search_result.append(book)        
     return search_result
 
@@ -100,13 +99,11 @@ def borrow_book(book_list): # mitzi
         print("No book found with that ISBN.")
     return
 
-
-def return_book(book_list): # option 3
+def return_book(book_list): # ayo
     to_return = input("Enter the 13-digit ISBN (format 999-9999999999): ")
     idx = find_book_by_isbn(to_return, book_list)
     if idx != -1:
         title = book_list[idx].get_title()
-        print(book_list[idx].get_availability())
         if not book_list[idx].get_availability():
             book_list[idx].return_it()
             print(f'{title} with ISBN {to_return} successfully returned.')  
@@ -116,7 +113,7 @@ def return_book(book_list): # option 3
         print("No book found with that ISBN.")
     return
 
-def find_book_by_isbn(isbn, book_list):
+def find_book_by_isbn(isbn, book_list): # riya
     for book_obj in book_list:
         if isbn == book_obj.get_isbn():
           return book_list.index(book_obj)
@@ -150,8 +147,7 @@ def remove_book(book_list): # riya
     else:
         print(f"'{book_list[book_idx].get_title()}' with ISBN {isbn} successfully removed.")
     del book_list[book_idx]
-    
-    
+       
 def print_books(print_list): # ayo
     print("{:<14s} {:<25s} {:<25s} {:<20s} {:<s}".format("ISBN", "Title", "Author", "Genre", "Availability"))
     print("{:<14s} {:<25s} {:<25s} {:<20s} {:<s}".format("-"*14, "-"*25, "-"*25, "-"*20, "-"*12))
