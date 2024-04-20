@@ -1,6 +1,7 @@
 
 
 class Book:
+    GENRE_LIST = ["Romance", "Mystery", "Science Fiction", "Thriller", "Young Adult", "Children's Fiction", "Self-help", "Fantasy", "Historical Fiction", "Poetry"]
     
     def __init__(self, isbn, title, author, genre, availability):
         self.__title = title
@@ -23,22 +24,17 @@ class Book:
         return self.__genre
     
     def get_genre_name(self):
-        genre_list = ["Romance", "Mystery", "Science Fiction", "Thriller", "Young Adult", "Children's Fiction", "Self-help", "Fantasy", "Historical Fiction", "Poetry"]
-        return genre_list[self.__genre]
+        return Book.GENRE_LIST[self.__genre]
     
     def get_availability(self):
-        if self.__availability:
-            status = 'Available'
-        else:
-            status = 'Borrowed'
-        return status
+        return self.__availability
 
     def borrow_it(self):
-        self.__availability = False
+        self.__availability = 'FALSE'
         return
 
     def return_it(self):
-        self.__availability = True
+        self.__availability = 'TRUE'
         return
 
     def set_isbn(self, new_isbn):
@@ -59,11 +55,12 @@ class Book:
 
     def __str__(self):
         genre = self.get_genre_name()
-        status = self.get_availability()
+        if self.get_availability() == True: availability = "Available"
+        else: availability = "Borrowed"
         isbn = self.get_isbn()
         title = self.get_title()
         author = self.get_author()
-        result = f'{isbn:<14s} {title:<25s} {author:<25s} {genre:<20s} {status:<20s}'
+        result = f'{isbn:<14s} {title:<25s} {author:<25s} {genre:<20s} {availability:<20s}'
         return result
 
 
