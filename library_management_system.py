@@ -1,3 +1,9 @@
+# Title: Library Management System
+# Date: April 19, 2024
+# Authors: Riya Johari, Ayomide Anuoluwapo Adewunmi, Mitzi Vera Escartin
+# Prepared for Doug Shier
+# CPRG 216 - Object Oriented Programming 1
+
 import book
 import os
 
