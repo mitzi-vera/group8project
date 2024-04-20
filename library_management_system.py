@@ -87,7 +87,7 @@ def search_books(search_string, book_list): # mitzi
     lower_ss = search_string.lower()
     for book in book_list:
         genre = book.get_genre_name()
-        if lower_ss in book.get_isbn().lower() or lower_ss in book.get_title().lower() or lower_ss in book.get_author.lower() or lower_ss in genre.lower():
+        if lower_ss in book.get_isbn().lower() or lower_ss in book.get_title().lower() or lower_ss in book.get_author().lower() or lower_ss in genre.lower():
             search_result.append(book)        
     return search_result
 
