@@ -55,8 +55,8 @@ def load_books(file_path, book_list): # mitzi
     while line != '':
         line_list = []
         line_list = line.strip().split(',')
-        print(line_list[4].upper())
-        book_list.append(book.Book(line_list[0],line_list[1],line_list[2],int(line_list[3]), line_list[4]))
+        available = line_list[4].capitalize() == 'True'
+        book_list.append(book.Book(line_list[0],line_list[1],line_list[2],int(line_list[3]), available))
         line = infile.readline()
     infile.close()
     return book_list
@@ -91,7 +91,7 @@ def borrow_book(book_list): # mitzi
     idx = find_book_by_isbn(to_borrow, book_list)
     if idx != -1:
         title = book_list[idx].get_title()
-        if book_list[idx].get_availability() == "Available":
+        if book_list[idx].get_availability():
             book_list[idx].borrow_it()
             print(f'{title} with ISBN {to_borrow} successfully borrowed.')
         else:
@@ -107,7 +107,7 @@ def return_book(book_list): # option 3
     if idx != -1:
         title = book_list[idx].get_title()
         print(book_list[idx].get_availability())
-        if book_list[idx].get_availability() == 'Borrowed':
+        if not book_list[idx].get_availability():
             book_list[idx].return_it()
             print(f'{title} with ISBN {to_return} successfully returned.')  
         else:
@@ -167,10 +167,7 @@ def save_books(book_list, file_path): #riya
         title = book_obj.get_title()
         author = book_obj.get_author()
         genre = book_obj.get_genre()
-        if book_obj.get_availability() == 'Available': 
-           available =  "TRUE" 
-        else: 
-            available = "FALSE"
+        available = book_obj.get_availability()
         
         line = f"{isbn},{title},{author},{genre},{available}\n"
         book_file.write(line)
