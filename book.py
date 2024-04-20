@@ -1,6 +1,7 @@
 
 
 class Book:
+    GENRE_LIST = ["Romance", "Mystery", "Science Fiction", "Thriller", "Young Adult", "Children's Fiction", "Self-help", "Fantasy", "Historical Fiction", "Poetry"]
     
     def __init__(self, isbn, title, author, genre, availability):
         self.__title = title
@@ -23,11 +24,10 @@ class Book:
         return self.__genre
     
     def get_genre_name(self):
-        genre_list = ["Romance", "Mystery", "Science Fiction", "Thriller", "Young Adult", "Children's Fiction", "Self-help", "Fantasy", "Historical Fiction", "Poetry"]
-        return genre_list[self.__genre]
+        return Book.GENRE_LIST[self.__genre]
     
     def get_availability(self):
-        if self.__availability:
+        if self.__availability == 'True':
             status = 'Available'
         else:
             status = 'Borrowed'

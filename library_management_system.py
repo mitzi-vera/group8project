@@ -5,9 +5,7 @@ def main (): # mitzi
     print("Starting the system...")
     curr_dir = os.getcwd()
     file_name = input("Enter book catalog filename: ")
-    file_path = os.path.join(curr_dir, file_name)
-    
-    while not os.path.exists(file_path):
+    while not os.path.exists(os.path.join(curr_dir, file_name)):
         file_name = input("File not found. Re-enter book catalog file name:")
 
     file_path = os.path.join(curr_dir, file_name)
@@ -17,7 +15,7 @@ def main (): # mitzi
     valid_selections = {"1" : "Search for books", "2" : "Borrow a book", "3" : "Return a book"} 
     heading = "\nReader's Guild Library - Main Menu"
     selection = print_menu(heading, valid_selections)
-    while selection != '0':                    
+    while selection != '0':                  
         if selection == '2130':
             valid_selections.update({"4" : "Add a book", "5" : "Remove a book", "6" : "Print catalog"})
             heading = "\nReader's Guild Library - Librarian Menu"
@@ -51,8 +49,6 @@ def main (): # mitzi
     print("Book catalog has been saved.")
     print("Good Bye!")
 
-    
-# this is a test push
 def load_books(file_path): # mitzi
     book_list = []
     infile = open(file_path, 'r')
@@ -60,7 +56,8 @@ def load_books(file_path): # mitzi
     while line != '':
         line_list = []
         line_list = line.strip().split(',')
-        availability = line_list[4].upper().strip() == 'TRUE'
+        availability = line_list[4].upper().strip().capitalize()
+        print(availability)
         book_list.append(book.Book(line_list[0],line_list[1],line_list[2],int(line_list[3]), availability))
         line = infile.readline()
     infile.close()
@@ -121,7 +118,7 @@ def return_book(book_list): # option 3
         print("No book found with that ISBN.")
     return
 
-def find_book_by_isbn(isbn, book_list): # riya
+def find_book_by_isbn(isbn, book_list):
     for book_obj in book_list:
         if isbn == book_obj.get_isbn():
           return book_list.index(book_obj)
@@ -133,13 +130,13 @@ def add_book(book_list): # riya
     author = input("Enter author name: ")
     
     genre = input("Enter genre: ")
-    while genre not in book.Book.genre_list:
+    while genre not in book.Book.GENRE_LIST:
         print("Invalid genre. Choices are: ", end="")
-        for valid_genre in book.Book.genre_list:
+        for valid_genre in book.Book.GENRE_LIST:
           print(valid_genre, end=", ")
         genre = input("\nEnter genre: ")
     
-    genre_no = book.Book.genre_list.index(genre)
+    genre_no = book.Book.GENRE_LIST.index(genre)
     available = True
     book_obj = book.Book(isbn, title, author, genre_no, available)
     book_list.append(book_obj)
@@ -148,7 +145,7 @@ def add_book(book_list): # riya
 def remove_book(book_list): # riya
     isbn = input("Enter the 13-digit ISBN (format 999-9999999999): ")
 
-    book_idx = find_book_by_isbn(book_list, isbn)
+    book_idx = find_book_by_isbn(isbn, book_list)
     
     if book_idx == -1:
         print("No book found with that ISBN.")
@@ -167,20 +164,21 @@ def print_books(print_list): # ayo
 def save_books(book_list, file_path): #riya
     book_file = open(file_path, "w")
     num_books = 0
-    
     for book_obj in book_list:
         isbn = book_obj.get_isbn()
         title = book_obj.get_title()
         author = book_obj.get_author()
         genre = book_obj.get_genre()
-        available = book_obj.get_availability()
+        if book_obj.get_availability() == False: 
+           available =  "FALSE" 
+        else: 
+            available = "TRUE"
         
         line = f"{isbn},{title},{author},{genre},{available}\n"
         book_file.write(line)
         
         num_books += 1
     return num_books
-
 
 if __name__ == "__main__":
     main()
